@@ -1,0 +1,70 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="copy">
+	<title>ADMIN IOTDAS</title>
+
+    <!--<link rel="icon" href="../../favicon.ico">-->
+    <meta name="google-signin-client_id" content="117267557828-16j4kts4inp4atvcdrq8v4iphnl4ff1a.apps.googleusercontent.com">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta
+			content="width=device-width, initial-scale=1"
+			id="Viewport" name="viewport" />
+
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/webjars/fontawesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/webjars/prismjs/1.6.0/themes/prism.css}" rel="stylesheet" media="screen" />
+
+	<link rel="stylesheet" href="/css/style.css" />
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]
+              <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+              <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <![endif]-->
+</head>
+
+<body th:fragment="copy" class="container">
+
+    <!-- fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" th:href="@{/}">i<i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i>tdas</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lock" aria-hidden="true"></i> admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pessoa" th:href="@{/pessoa}"><i class="fa fa-users" aria-hidden="true"></i> pessoas</a></li>
+                            <li><a href="/tipo" th:href="@{/tipo}"><i class="fa fa-bars" aria-hidden="true"></i> tipos</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lock" aria-hidden="true"></i> menu <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pessoa/perfil/30" th:href="@{/pessoa/perfil/30}"><i class="fa fa-users" aria-hidden="true"></i> perfil</a></li>
+                            <li><a href="/pessoa/info/30" th:href="@{/pessoa/info/30}"><i class="fa fa-bars" aria-hidden="true"></i> canais</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="pull-right">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    <a class="navbar-brand" href="/login" th:href="@{/login}">Sair</a>
+                </div>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+</body>
+</html>

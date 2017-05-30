@@ -1,0 +1,73 @@
+  config-server:
+    image: chimbida/spring-iotdas-config-server
+    container_name: config-server
+    ports:
+     - 8888:8888
+
+  discovery-server:
+    image: chimbida/spring-iotdas-discovery-service
+    container_name: discovery-server
+    links:
+     - config-server
+    depends_on:
+      - config-server
+    entrypoint: ["./wait-for-it.sh","config-server:8888","--timeout=60","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ports:
+     - 8761:8761
+
+  customers-service:
+    image: chimbida/spring-iotdas-customers-service
+    container_name: usuario-service
+    links:
+     - config-server
+     - discovery-server
+     - tracing-server
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./wait-for-it.sh","discovery-server:8761","--timeout=60","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ports:
+    - 8081:8081
+
+  api-gateway:
+    image: chimbida/spring-iotdas-api-gateway
+    container_name: gateway-server
+    links:
+     - config-server
+     - discovery-server
+     - usuario-service
+     - visits-service
+     - vets-service
+     - tracing-server
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./wait-for-it.sh","discovery-server:8761","--timeout=60","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ports:
+     - 8080:8080
+
+  tracing-server:
+    image: chimbida/spring-iotdas-tracing-server
+    container_name: tracing-server
+    links:
+     - config-server
+     - discovery-server
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./wait-for-it.sh","discovery-server:8761","--timeout=60","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ports:
+     - 9411:9411
+
+  admin-server:
+    image: chimbida/spring-iotdas-admin-server
+    container_name: admin-server
+    links:
+     - config-server
+     - discovery-server
+    depends_on:
+     - config-server
+     - discovery-server
+    entrypoint: ["./wait-for-it.sh","discovery-server:8761","--timeout=60","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ports:
+     - 9090:9090

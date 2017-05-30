@@ -1,0 +1,31 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+ribbon:
+  eureka:
+    enabled: true
+
+server:
+  port: 9999
+  contextPath: /uaa
+
+security:
+  sessions: if-required
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/iotdas?useSSL=false
+    username: root
+    password: root
+    driver-class: com.mysql.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: canal-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: UmSbh9XLkkuqtUf2kyQC4bS
+      username: user

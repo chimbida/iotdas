@@ -1,0 +1,78 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-6"><h3>Editar/Adicionar Usuário</h3></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form th:object="${pessoa}" method="post" enctype="multipart/form-data" th:action="@{/pessoa}">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{guid}" />
+            <div class="form-group row">
+                <label for="nome" class="col-xs-2 col-form-label">Nome</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" id="nome" th:field="*{nome}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sobrenome" class="col-xs-2 col-form-label">Sobrenome</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" id="sobrenome" th:field="*{sobrenome}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="usuario" class="col-xs-2 col-form-label">Usuário</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" id="usuario" th:field="*{usuario}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="senha" class="col-xs-2 col-form-label">Senha</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="password" id="senha" th:field="*{senha}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-xs-2 col-form-label">Email</label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="email" id="email" th:field="*{email}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tipoPessoa" class="col-xs-2 col-form-label">Tipo Pessoa</label>
+                <div class="col-xs-10">
+                    <select class="form-control" th:field="*{tipoPessoa.id}"  id="tipoPessoa">
+                        <option value="0" th:text="Tipo" ></option>
+                        <option th:each="tip : ${tipo}" th:value="${tip.id}" th:text="${tip.nome}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ativo" class="col-xs-2 col-form-label">Ativo</label>
+                <div class="col-xs-1">
+                    <input class="form-control" id="ativo" type="checkbox" name="ativo" th:checked="*{ativo}" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a class="btn btn-danger" th:href="@{/pessoa}" role="button">Cancelar</a>
+
+        </form>
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

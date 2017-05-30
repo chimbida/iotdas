@@ -1,0 +1,52 @@
+﻿﻿authserver:
+    hostname: localhost
+    port: 9999
+    contextPath: uaa
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud: DEBUG
+    org.springframework.web: WARN
+
+spring:
+  profiles: default
+  aop:
+    proxy-target-class: true
+
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+ribbon:
+  eureka:
+    enabled: true
+
+zuul:
+  routes:
+    # NAO MAPEIA DIRETAMENTE OS SERVIÇOS
+    #ignored-services: "*"
+    canal-service:
+      serviceId: canal-service
+      path: /api/**
+      sensitive-headers:
+    ui-service:
+      path: /**
+      serviceId: ui-service
+      sensitive-headers:
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/oauth/token
+      userAuthorizationUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/oauth/authorize
+      clientId: gateway
+      clientSecret: senhagateway
+    resource:
+      userInfoUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/user
+      preferTokenInfo: false
+  sessions: ALWAYS
+  basic:
+      enabled: false

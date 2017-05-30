@@ -1,0 +1,182 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8"><strong><h3>Informações do Usuário</h3></strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><span class="pull-left"><a class="btn btn-danger" th:href="@{/pessoa}" role="button">Voltar</a></span></div>
+            <div class="col-md-6"><span class="pull-right"><a class="btn btn-primary" th:href="@{/pessoa/} + ${pessoa.id}" role="button">Editar</a></span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-body inf-content">
+            <div class="row">
+                <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" th:src="'https://robohash.org/' + ${pessoa.guid} + '.png'" data-original-title="Usuario" />
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-responsive table-user-information">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                        Identificação
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.id}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <i class="fa fa-spin fa-key fa-fw" aria-hidden="true"></i>
+                                        Chave
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <span class="text-danger" th:text="${pessoa.guid}"></span>
+                                    </strong>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-primary btn-xs" aria-label="Nova Chave" th:href="@{/pessoa/guid/} + ${pessoa.id}" role="button">
+                                        Nova Chave
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-user  text-primary"></span>
+                                        Nome
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.nome}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                        Sobrenome
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.sobrenome}">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                        Usuário
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.usuario}">
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                        Role
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:each="tipo : ${pessoa.tipoPessoa}" th:text="${tipo.descricao}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                        Email
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.email}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                        Criado
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.criado}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                        Modificado
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${pessoa.modificado}" >
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8"><strong><h3>Informações dos Canais do Usuário</h3></strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-10"><span class="pull-right"><a class="btn btn-primary" th:href="@{/canal/novo/} + ${pessoa.id}" role="button">Novo Canal</a></span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <table class="table table-responsive table-hover table-condensed">
+                <tr class="info">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th></th>
+                </tr>
+                <tr th:each="can : ${canal}">
+                    <td th:text="${can.id}"></td>
+                    <td th:text="${can.nome}"></td>
+                    <td th:text="${can.descricao}"></td>
+                    <td class="text-right">
+                        <a class="btn btn-info" th:href="@{/canal/} + ${can.id}" aria-label="Visualizar">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-success" th:href="@{/canal/} + ${can.id} + @{/} + ${pessoa.id}" aria-label="Editar">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger" th:href="@{/canal/delete/} + ${can.id}" aria-label="Deletar">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

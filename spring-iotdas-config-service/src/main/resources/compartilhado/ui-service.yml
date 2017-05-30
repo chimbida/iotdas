@@ -1,0 +1,39 @@
+authserver:
+    hostname: localhost
+    port: 9999
+    contextPath: uaa
+
+debug: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+
+spring:
+  profiles: default
+eureka:
+  instance:
+    # enable to register multiple app instances with a random server port
+    instance-id: ${spring.application.name}:${random.uuid}
+
+ribbon:
+  eureka:
+    enabled: true
+
+server:
+  port: 8081
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/oauth/token
+      userAuthorizationUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/oauth/authorize
+      clientId: gateway
+      clientSecret: senhagateway
+      grantType: authorization_code
+      scope: openid
+    resource:
+      userInfoUri: http://${authserver.hostname}:${authserver.port}/${authserver.contextPath}/user
+      preferTokenInfo: false
+  sessions: ALWAYS

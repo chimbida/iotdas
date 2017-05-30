@@ -1,0 +1,92 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8"><strong><h3>Informações do Campo</h3></strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><span class="pull-left"><a class="btn btn-danger" th:href="@{/canal/} + ${campo.canal.id}" role="button">Voltar</a></span></div>
+            <div class="col-md-6"><span class="pull-right"><a class="btn btn-primary" th:href="@{/campo/} + ${campo.id} + @{/} + ${campo.canal.id}" role="button">Editar</a></span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-body inf-content">
+            <div class="row">
+                <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" th:src="'https://robohash.org/' + ${campo.guid} + '.png?set=set3'" data-original-title="Campo" />
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-responsive table-user-information">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                        Identificação
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${campo.id}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <i class="fa fa-spin fa-key fa-fw" aria-hidden="true"></i>
+                                        Chave
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <span class="text-danger" th:text="${campo.guid}"></span>
+                                    </strong>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-primary btn-xs" aria-label="Nova Chave" th:href="@{/campo/guid/} + ${campo.id}" role="button">
+                                        Nova Chave
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                        Canal
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${campo.canal.nome}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                        Nome
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${campo.nome}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

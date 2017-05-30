@@ -1,0 +1,21 @@
+logging:
+  level:
+    org.springframework.security: INFO
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 5 #NAO FAZER ISSO EM PRODUCAO
+    prefer-ip-address: true
+  server:
+      enableSelfPreservation: false
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

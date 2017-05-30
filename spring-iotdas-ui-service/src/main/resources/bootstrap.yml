@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ui-service
+  freemarker:
+    enabled: false           # Ignore Eureka dashboard FreeMarker templates
+  thymeleaf:
+    cache: false             # Allow Thymeleaf templates to be reloaded at runtime
+    prefix: classpath:/templates/
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: UmSbh9XLkkuqtUf2kyQC4bS
+      username: user

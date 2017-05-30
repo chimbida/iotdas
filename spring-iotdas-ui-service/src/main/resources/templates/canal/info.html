@@ -1,0 +1,179 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8"><strong><h3>Informações do Canal</h3></strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><span class="pull-left"><a class="btn btn-danger" th:href="@{/pessoa/info/} + ${canal.pessoa.id}" role="button">Voltar</a></span></div>
+            <div class="col-md-3"><span class="pull-left"><a class="btn btn-primary" data-toggle="modal" data-target="#exemploJson" role="button">Exemplo JSON</a></span></div>
+            <div class="col-md-3"><span class="pull-right"><a class="btn btn-primary" th:href="@{/canal/} + ${canal.id} + @{/} + ${canal.pessoa.id}" role="button">Editar</a></span></div>
+        </div>
+    </div>
+
+    <!-- Modal de exemplo do JSON -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="exemploJson">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Exemplo de JSON para a API</h4>
+                </div>
+                <div class="modal-body">
+                    <pre><code class="language-json">
+{
+    "guid" : "fba20072-3bf4-11e7-8d2d-d481d78c497a",
+    "campos" : [
+        {
+            "guid" : "fbf61824-3bf4-11e7-8d2d-d481d78c497a",
+            "dados" : "teste"
+        },
+        {
+            "guid" : "fc723a16-3bf4-11e7-8d2d-d481d78c497a",
+            "dados" : "teste"
+        },
+        {
+            "guid" : "fc9a4c45-3bf4-11e7-8d2d-d481d78c497a",
+            "dados" : "teste"
+        }
+    ]
+}
+                    </code></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Copiar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Fim do modal -->
+
+    <div class="container">
+        <div class="panel-body inf-content">
+            <div class="row">
+                <div class="col-md-4">
+                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" th:src="'https://robohash.org/' + ${canal.guid} + '.png?set=set2'" data-original-title="Canal" />
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-responsive table-user-information">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                        Identificação
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${canal.id}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <i class="fa fa-spin fa-key fa-fw" aria-hidden="true"></i>
+                                        Chave
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <span class="text-danger" th:text="${canal.guid}"></span>
+                                    </strong>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-primary btn-xs" aria-label="Nova Chave" th:href="@{/canal/guid/} + ${canal.id}" role="button">
+                                        Nova Chave
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-user  text-primary"></span>
+                                        Usuário
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${canal.pessoa.usuario}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                        Nome
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${canal.nome}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                        Descrição
+                                    </strong>
+                                </td>
+                                <td class="text-primary" th:text="${canal.descricao}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8"><strong><h3>Informações dos Campos do Canal</h3></strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-10"><span class="pull-right"><a class="btn btn-primary" th:href="@{/campo/novo/} + ${canal.id}" role="button">Novo Campo</a></span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <table class="table table-responsive table-hover table-condensed">
+                <tr class="info">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Chave</th>
+                    <th></th>
+                </tr>
+                <tr th:each="cam : ${campo}">
+                    <td th:text="${cam.id}"></td>
+                    <td th:text="${cam.nome}"></td>
+                    <td class="text-danger" th:text="${cam.guid}"></td>
+                    <td class="text-right">
+                        <a class="btn btn-info" th:href="@{/campo/info/} + ${cam.id}" aria-label="Visualizar">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-success" th:href="@{/campo/} + ${cam.id} + @{/} + ${canal.id}" aria-label="Editar">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger" th:href="@{/campo/delete/} + ${cam.id}" aria-label="Deletar">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

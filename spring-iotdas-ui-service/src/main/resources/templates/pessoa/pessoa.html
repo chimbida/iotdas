@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-6"><h3>Lista Usuários</h3></div>
+            <div class="col-md-6"><span class="pull-right"><a class="btn btn-primary" th:href="@{/pessoa/nova}" role="button"><i class="fa fa-lg fa-plus-circle" aria-hidden="true"></i> Novo Usuário</a></span></div>
+        </div>
+    </div>
+
+    <div class="container">
+            <div class="row">
+                <table class="table table-responsive table-hover table-condensed">
+                    <tr class="info">
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Usuário</th>
+                        <th>Tipo</th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="cliente : ${pessoa}" th:class="${cliente.ativo == false}? 'danger'">
+                        <td th:text="${cliente.id}"></td>
+                        <td th:text="${cliente.nome}"></td>
+                        <td th:text="${cliente.sobrenome}"></td>
+                        <td th:text="${cliente.usuario}"></td>
+                        <td th:each="tipo : ${cliente.tipoPessoa}" th:text="${tipo.descricao}"></td>
+                        <td class="text-right">
+                            <a class="btn btn-info" th:href="@{/pessoa/info/} + ${cliente.id}" aria-label="Visualizar">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-success" th:href="@{/pessoa/} + ${cliente.id}" aria-label="Editar">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-danger" th:href="@{/pessoa/delete/} + ${cliente.id}" aria-label="Excluir">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a></td>
+                            <!--<a class="btn btn-danger" data-toggle="modal" onclick="'javascript:modalDelete(54);'" data-target="#deletarUsuario" aria-label="Deletar">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a></td>-->
+                    </tr>
+                </table>
+        </div>
+    </div>
+
+    <!-- Modal de Delete -->
+    <!--<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="deletarUsuario">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Excluir usuário</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja realmente excluir o usuário e todos os canais associados a ele?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a id="btnDeletarUsuario" class="btn btn-primary" th:href="@{/}" role="button">Excluir</a>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!-- Fim do modal -->
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>
